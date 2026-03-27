@@ -7,7 +7,7 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps { git 'https://github.com/yourname/devops-eks-gitops-project.git' }
+      steps { git 'https://github.com/SaimHazeq/Project-1.git' }
     }
 
     stage('Build Image') {
