@@ -2,6 +2,6 @@ variable "region" {
   default = "ap-south-1"
 }
 
-variable "cluster_name" {
-  default = "devops-eks"
+variable "project_name" {
+  default = "devops-project"
 }
