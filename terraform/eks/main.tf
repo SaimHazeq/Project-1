@@ -6,7 +6,7 @@ module "eks" {
   subnet_ids = var.subnet_ids
   vpc_id     = var.vpc_id
 
-  node_groups = {
+  eks_managed_node_groups = {
     default = {
       desired_capacity = 2
       instance_types   = ["t3.medium"]
