@@ -2,15 +2,20 @@ pipeline {
   agent any
 
   environment {
+    AWS_REGION = "ap-south-1"
     ECR_REPO = "047719648578.dkr.ecr.ap-south-1.amazonaws.com/devops-project-repo"
+    IMAGE_TAG = "latest"
   }
 
   stages {
+
     stage('Checkout') {
-      steps { git 'https://github.com/SaimHazeq/Project-1.git' }
+      steps {
+        git branch: 'main', url: 'https://github.com/SaimHazeq/Project-1.git'
+      }
     }
 
-    stage('Build Image') {
+    stage('Build Docker Image') {
       steps {
         sh 'docker build -t devops-app ./app'
       }
