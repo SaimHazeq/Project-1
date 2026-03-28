@@ -37,10 +37,12 @@ module "eks" {
   }
 }
 
+manage_aws_auth_configmap = true
+
 aws_auth_users = [
   {
-    userarn  = "arn:aws:iam::047719648578:user/saimIAM "
-    username = "saimIAM"
+    userarn  = "arn:aws:iam::<your-account-id>:user/devops-admin"
+    username = "admin"
     groups   = ["system:masters"]
   }
 ]
