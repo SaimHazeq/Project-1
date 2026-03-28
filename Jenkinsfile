@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    ECR_REPO = "123456789.dkr.ecr.ap-south-1.amazonaws.com/devops-app"
+    ECR_REPO = "047719648578.dkr.ecr.ap-south-1.amazonaws.com/devops-project-repo"
   }
 
   stages {
@@ -16,14 +16,24 @@ pipeline {
       }
     }
 
-    stage('Push to ECR') {
+    stage('Login to ECR') {
       steps {
         sh '''
-        aws ecr get-login-password --region ap-south-1 |
-        docker login --username AWS --password-stdin $ECR_REPO
-        docker tag devops-app:latest $ECR_REPO:latest
-        docker push $ECR_REPO:latest
+        aws ecr get-login-password --region $AWS_REGION \
+        | docker login --username AWS --password-stdin $ECR_REPO
         '''
+      }
+    }
+
+    stage('Tag Image') {
+      steps {
+        sh 'docker tag devops-app:latest $ECR_REPO:$IMAGE_TAG'
+      }
+    }
+
+    stage('Push to ECR') {
+      steps {
+        sh 'docker push $ECR_REPO:$IMAGE_TAG'
       }
     }
   }
