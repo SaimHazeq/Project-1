@@ -23,6 +23,8 @@ module "eks" {
   cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
 
+  manage_aws_auth_configmap = true
+
   enable_irsa = true
 
   eks_managed_node_groups = {
@@ -34,3 +36,11 @@ module "eks" {
     }
   }
 }
+
+aws_auth_users = [
+  {
+    userarn  = "arn:aws:iam::047719648578:user/saimIAM "
+    username = "saimIAM"
+    groups   = ["system:masters"]
+  }
+]
