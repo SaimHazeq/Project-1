@@ -28,7 +28,7 @@ module "eks" {
   aws_auth_users = [
     {
     userarn  = "arn:aws:iam::047719648578:user/saimIAM"
-    username = "admin"
+    username = "saimIAM"
     groups   = ["system:masters"]
     }
   ]
