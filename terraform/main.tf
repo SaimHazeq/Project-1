@@ -25,14 +25,6 @@ module "eks" {
 
   manage_aws_auth_configmap = true
 
-  aws_auth_users = [
-    {
-    userarn  = "arn:aws:iam::047719648578:user/saimIAM"
-    username = "saimIAM"
-    groups   = ["system:masters"]
-    }
-  ]
-
   enable_irsa = true
 
   eks_managed_node_groups = {
