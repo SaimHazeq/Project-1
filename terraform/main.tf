@@ -21,17 +21,30 @@ module "eks" {
   subnet_ids = module.vpc.private_subnets
 
   cluster_endpoint_public_access  = true
-  cluster_endpoint_private_access = true
+  cluster_endpoint_private_access = false
 
   enable_irsa = true
 
+# AUTH CONFIG
 manage_aws_auth_configmap = true
 
   aws_auth_users = [
     {
-      userarn  = "arn:aws:iam::047719648578:user/saimIAM"
+      userarn  = "var.admin_user_arn"
       username = "admin"
       groups   = ["system:masters"]
+    }
+  ]
+
+# NODE ROLE MAPPING
+  aws_auth_roles = [
+    {
+      rolearn  = module.eks.eks_managed_node_groups["default"].iam_role_arn
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups   = [
+        "system:bootstrappers",
+        "system:nodes"
+      ]
     }
   ]
 
@@ -41,7 +54,10 @@ manage_aws_auth_configmap = true
       desired_size   = 2
       min_size       = 1
       max_size       = 3
+
+      subnet_ids = module.vpc.private_subnets
     }
   }
+  depends_on = [module.vpc]
 }
 
