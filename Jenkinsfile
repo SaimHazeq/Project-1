@@ -4,7 +4,7 @@ pipeline {
   environment {
     AWS_REGION = "ap-south-1"
     ECR_REGISTRY = "047719648578.dkr.ecr.ap-south-1.amazonaws.com"
-    ECR_REPO = "latest"
+    ECR_REPO = "devops-app"
   }
 
   stages {
